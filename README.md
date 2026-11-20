@@ -111,6 +111,17 @@ A integração contínua usa PHP 8.3 e um MySQL isolado para instalar a estrutur
 criar um administrador fictício e verificar a tela de login. Os testes unitários
 existentes cobrem validação de leads e assinatura de webhook; não representam cobertura completa do produto.
 
+## Resultado da validação da publicação
+
+Na validação de **20/11/2026**, passaram as verificações de instalação em banco MySQL
+vazio, criação do administrador inicial, testes unitários e abertura da tela de login,
+executadas no [GitHub Actions](https://github.com/Ricard0-o/nexora-crm/actions/workflows/ci.yml).
+
+**Ainda não foi realizada uma validação manual completa de todos os fluxos autenticados
+do CRM.** Os testes existentes não representam cobertura completa do produto.
+**A integração de pagamentos não está validada para cobranças reais** e não acompanha
+credenciais de produção. A demonstração pública não processa cobranças.
+
 ## Configurações, segurança e limitações
 
 - `.env.example` documenta as opções; `.env`, dados, backups, logs e uploads não são publicados.

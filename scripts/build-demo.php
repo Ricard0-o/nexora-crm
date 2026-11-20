@@ -16,6 +16,8 @@ $copy = function (string $src, string $dest) use (&$copy): void {
     else { copy($src, $dest); }
 };
 foreach (['css','images'] as $dir) { $copy($root . '/public/' . $dir, $target . '/' . $dir); }
+$copy($root . '/licenses', $target . '/licenses');
+copy($root . '/THIRD_PARTY_NOTICES.md', $target . '/THIRD_PARTY_NOTICES.md');
 if (!is_dir($target . '/js')) { mkdir($target . '/js'); }
 foreach (['app.js','chart.umd.min.js'] as $name) { copy($root . '/public/js/' . $name, $target . '/js/' . $name); }
 echo "Demonstração estática gerada sem acessar banco ou configuração pessoal.\n";

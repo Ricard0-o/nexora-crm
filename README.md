@@ -3,7 +3,7 @@
 CRM web de Ricardo Nelber para organizar leads, negociações, projetos e informações financeiras comerciais.
 Projeto de portfólio em desenvolvimento, com servidor PHP e armazenamento MySQL/MariaDB.
 
-**[Abrir demonstração](https://nexora-crm-ricardo-demo.rick00-oo.chatgpt.site)** ·
+**[Abrir demonstração](https://ricard0-o.github.io/nexora-crm/)** ·
 **[Portfólio do autor](https://ricard0-o.github.io/ricardonelberdev/)**
 
 ## Demonstração
@@ -125,3 +125,9 @@ Ricardo Nelber — [GitHub](https://github.com/Ricard0-o).
 Código autoral com direitos reservados; consulte [LICENSE](LICENSE) e
 [componentes de terceiros](THIRD_PARTY_NOTICES.md).
 Veja também [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md) e [CHANGELOG.md](CHANGELOG.md).
+
+## Publicação da demonstração
+
+A demonstração é hospedada no GitHub Pages pelo workflow `.github/workflows/pages.yml`.
+Somente a pasta `demo/` é publicada; código de servidor, banco e configurações não são servidos.
+Para atualizar, regenere a demonstração, revise os arquivos e envie o commit para `main`.

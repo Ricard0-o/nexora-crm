@@ -1,0 +1,2 @@
+<div class="page-heading"><div><span class="eyebrow dark">Cadastro manual</span><h1>Nova empresa</h1><p>Crie um lead individual sem precisar gerar um arquivo JSON.</p></div><a class="button button-secondary" href="<?= url('/leads') ?>">Voltar para leads</a></div>
+<form class="panel lead-form" method="post" action="<?= url('/leads') ?>" novalidate><?php $submitLabel='Salvar empresa'; require __DIR__.'/_form.php'; ?></form>

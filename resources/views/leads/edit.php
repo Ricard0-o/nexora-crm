@@ -1,0 +1,2 @@
+<div class="page-heading"><div><span class="eyebrow dark">Manutenção de cadastro</span><h1>Editar empresa</h1><p>Atualize dados comerciais, contato, status e informações LGPD.</p></div><a class="button button-secondary" href="<?= url('/leads') ?>">Voltar para leads</a></div>
+<form class="panel lead-form" method="post" action="<?= url('/leads/update') ?>" novalidate><?php $submitLabel='Salvar alterações'; require __DIR__.'/_form.php'; ?></form>

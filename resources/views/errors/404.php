@@ -1,0 +1,1 @@
+<main class="not-found"><img class="not-found-logo" src="<?= asset('images/nelber-code-mark.png') ?>" alt="Nelber Code"><h1>404</h1><p>Esta página não foi encontrada.</p><a class="button button-primary" href="<?= url('/') ?>">Voltar ao início</a></main>

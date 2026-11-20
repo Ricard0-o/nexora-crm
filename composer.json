@@ -1,0 +1,36 @@
+{
+  "name": "ricard0-o/nexora-crm",
+  "description": "CRM em PHP com leads, pipeline, projetos e relatÃ³rios",
+  "type": "project",
+  "require": {
+    "php": "^8.3",
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "ext-curl": "*",
+    "vlucas/phpdotenv": "^5.6",
+    "monolog/monolog": "^3.8",
+    "opis/json-schema": "^2.4",
+    "ext-mbstring": "*",
+    "ext-pdo_mysql": "*",
+    "ext-fileinfo": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "check": "@php scripts/check.php"
+  },
+  "license": "proprietary",
+  "config": {
+    "platform": {
+      "php": "8.3.0"
+    },
+    "sort-packages": true
+  }
+}

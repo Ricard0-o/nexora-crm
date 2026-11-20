@@ -1,0 +1,14 @@
+/.env
+/.env.*
+!/.env.example
+/vendor/
+/storage/**
+!/storage/**/
+!/storage/**/.gitkeep
+*.log
+*.sqlite*
+*.pem
+*.key
+*.crt
+/coverage/
+/composer.phar

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "array",
+  "maxItems": 1000,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["nome_empresa", "ramo_atividade", "email", "telefone"],
+    "properties": {
+      "nome": {"type": ["string", "null"], "maxLength": 120},
+      "nome_empresa": {"type": "string", "minLength": 2, "maxLength": 180},
+      "ramo_atividade": {"type": "string", "minLength": 2, "maxLength": 120},
+      "email": {"type": "string", "format": "email", "maxLength": 190},
+      "telefone": {"type": "string", "minLength": 8, "maxLength": 30},
+      "observacao_prospeccao": {"type": ["string", "null"], "maxLength": 3000},
+      "base_legal": {"type": ["string", "null"], "maxLength": 100},
+      "finalidade": {"type": ["string", "null"], "maxLength": 255}
+    }
+  }
+}

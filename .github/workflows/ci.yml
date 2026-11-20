@@ -1,0 +1,44 @@
+name: Verificações do CRM
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ci-only-password
+          MYSQL_DATABASE: nexora_ci
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -pci-only-password"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+    env:
+      DB_HOST: 127.0.0.1
+      DB_DATABASE: nexora_ci
+      DB_USERNAME: root
+      DB_PASSWORD: ci-only-password
+      CRM_ADMIN_EMAIL: admin@example.test
+      CRM_ADMIN_PASSWORD: TestOnly-NotForProduction-247
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_mysql, mbstring, curl, fileinfo
+          coverage: none
+      - run: composer validate --strict
+      - run: composer install --no-interaction --prefer-dist
+      - run: composer check
+      - run: composer test
+      - run: php scripts/install.php
+      - run: php scripts/create-admin.php
+      - run: php scripts/build-demo.php
+      - name: Primeiro acesso HTTP
+        run: |
+          php -S 127.0.0.1:8080 -t public public/index.php > /tmp/nexora-http.log 2>&1 &
+          trap 'kill $!' EXIT
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8080/login > /tmp/nexora-login.html && break || sleep 1; done
+          grep -q 'csrf\|_token' /tmp/nexora-login.html

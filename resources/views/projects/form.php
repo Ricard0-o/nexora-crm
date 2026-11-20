@@ -1,0 +1,24 @@
+<?php $editing=$mode==='edit'; $action=$editing?'/projects/update':'/projects'; ?>
+<div class="page-heading"><div><span class="eyebrow dark"><?= $editing?'Manutenção do projeto':'Novo projeto' ?></span><h1><?= $editing?'Editar projeto':'Criar projeto' ?></h1><p>Gerencie escopo, etapa, progresso, datas e posição financeira.</p></div><a class="button button-secondary" href="<?= url('/projects') ?>">Voltar para projetos</a></div>
+<?php if($leads===[]): ?><div class="alert error">Nenhuma empresa está com status “Contratado”. Atualize o lead no CRM antes de criar um projeto.</div><?php endif; ?>
+<form class="panel lead-form project-form" method="post" action="<?= url($action) ?>" novalidate><?= csrf_field() ?><?php if($editing): ?><input type="hidden" name="id" value="<?= (int)$project['id'] ?>"><?php endif; ?>
+<div class="form-section-heading"><span>01</span><div><h2>Identificação</h2><p>Empresa contratante, código e etapa atual.</p></div></div>
+<div class="form-grid">
+  <?php $selectedLead=(int)htmlspecialchars_decode(old('lead_id',(string)($project['lead_id']??''))); ?>
+  <label>Empresa contratada <em>*</em><select name="lead_id" required><option value="">Selecione</option><?php foreach($leads as $lead): ?><option value="<?= (int)$lead['id'] ?>" <?= $selectedLead===(int)$lead['id']?'selected':'' ?>><?= e($lead['nome_empresa']) ?> · <?= e($lead['email']) ?></option><?php endforeach; ?></select><?php if(isset($errors['lead_id'])): ?><small class="field-error"><?= e($errors['lead_id']) ?></small><?php endif; ?></label>
+  <label>Código<input name="codigo" value="<?= old('codigo',(string)($project['codigo']??'')) ?>" maxlength="30" placeholder="Gerado automaticamente ao criar"><?php if(isset($errors['codigo'])): ?><small class="field-error"><?= e($errors['codigo']) ?></small><?php endif; ?></label>
+  <label class="form-span-2">Nome do projeto <em>*</em><input name="nome" value="<?= old('nome',(string)($project['nome']??'')) ?>" maxlength="180" required><?php if(isset($errors['nome'])): ?><small class="field-error"><?= e($errors['nome']) ?></small><?php endif; ?></label>
+  <?php $selectedStatus=htmlspecialchars_decode(old('status',(string)($project['status']??'Briefing'))); ?>
+  <label>Status<select name="status"><?php foreach(['Briefing','Layout','Desenvolvimento','Homologação','Entregue'] as $s): ?><option <?= $selectedStatus===$s?'selected':'' ?>><?= e($s) ?></option><?php endforeach; ?></select></label>
+  <label>Progresso (%)<input type="number" name="progresso" value="<?= old('progresso',(string)($project['progresso']??'0')) ?>" min="0" max="100" step="1"><?php if(isset($errors['progresso'])): ?><small class="field-error"><?= e($errors['progresso']) ?></small><?php endif; ?></label>
+</div>
+<div class="form-section-heading"><span>02</span><div><h2>Financeiro e prazos</h2><p>O saldo é calculado automaticamente no servidor.</p></div></div>
+<div class="form-grid form-grid-3">
+  <label>Valor total (R$)<input type="number" name="valor_total" value="<?= old('valor_total',(string)($project['valor_total']??'0.00')) ?>" min="0" step="0.01"><?php if(isset($errors['valor_total'])): ?><small class="field-error"><?= e($errors['valor_total']) ?></small><?php endif; ?></label>
+  <label>Valor pago (R$)<input type="number" name="valor_pago" value="<?= old('valor_pago',(string)($project['valor_pago']??'0.00')) ?>" min="0" step="0.01"><?php if(isset($errors['valor_pago'])): ?><small class="field-error"><?= e($errors['valor_pago']) ?></small><?php endif; ?></label>
+  <label>Saldo atual<input value="R$ <?= number_format((float)($project['saldo']??0),2,',','.') ?>" disabled></label>
+  <label>Data de contratação <em>*</em><input type="date" name="data_contratacao" value="<?= old('data_contratacao',(string)($project['data_contratacao']??date('Y-m-d'))) ?>" required><?php if(isset($errors['data_contratacao'])): ?><small class="field-error"><?= e($errors['data_contratacao']) ?></small><?php endif; ?></label>
+  <label>Data de entrega<input type="date" name="data_entrega" value="<?= old('data_entrega',(string)($project['data_entrega']??'')) ?>"><?php if(isset($errors['data_entrega'])): ?><small class="field-error"><?= e($errors['data_entrega']) ?></small><?php endif; ?></label>
+  <label>Data de vencimento<input type="date" name="data_vencimento" value="<?= old('data_vencimento',(string)($project['data_vencimento']??'')) ?>"><?php if(isset($errors['data_vencimento'])): ?><small class="field-error"><?= e($errors['data_vencimento']) ?></small><?php endif; ?></label>
+</div>
+<div class="form-footer"><p><strong>Atualização auditável</strong><span>Criação e alterações ficam registradas na trilha de auditoria.</span></p><div><a class="button button-secondary" href="<?= url('/projects') ?>">Cancelar</a><button class="button button-primary" type="submit" <?= $leads===[]?'disabled':'' ?>><?= $editing?'Salvar alterações':'Criar projeto' ?></button></div></div></form>
